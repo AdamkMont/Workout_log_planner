@@ -1,11 +1,12 @@
 from dataclasses import dataclass, field
-
+from typing import List, Optional
 
 from sqlalchemy import create_engine, Column, String, Integer, Table, ForeignKey, Date
-from sqlalchemy.orm import registry, declarative_base, sessionmaker
+from sqlalchemy.orm import registry, DeclarativeBase, sessionmaker, Mapped, mapped_column
 
-
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
+# Base = declarative_base()
 # mapper_registry = registry()
 #
 # @mapper_registry.mapped
@@ -13,8 +14,8 @@ Base = declarative_base()
 class Exercises(Base):
     __tablename__ = 'exercise_list'
 
-    ex_id = Column(Integer, primary_key=True)
-    name = Column(String(40))
+    ex_id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(40))
 
 class Tags(Base):
     __tablename__ = 'tags'
@@ -63,6 +64,7 @@ Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 
 
+(Mobility, Sport, Stability, Coordination, Kettlebell, Bodyweight, Dumbell, Band, Bar, Rings, Post, Swiss ball, Other equipment, Full body, Upper body, Posterior Chain, Core, Legs, Assymetric, Flow, Speed, Power, Slow, Isometric, Eccentric, Concentric, Neck, Shoulders, Back, Arm, Bicep, Tricep, Traps, Delts, Chest, Forearm, Wrist, Tendons, Hands, Lateral, Rotation, Oblique, Hip, Flexor, Glutes, Glute med, Abductors, Adductors, Quad, Hamstring, Calf, Tibialis, Ankle, Foot, Skill, BJJ, Hockey, Football, Boxing)
 
     # set_of_muscle_groups = {'Push', 'Pull', 'Calves', 'Hamstring', 'Quad', 'Glute', 'Leg', 'Stabiliser', 'Rotation', 'Core', 'Chest', 'Back', 'Arm', 'Shoulder'}
     # muscle_groups: list
